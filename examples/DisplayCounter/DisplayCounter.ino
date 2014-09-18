@@ -39,18 +39,18 @@ const int lcdD4Pin = 5; // LCD D4 pin
 const int lcdEPin = 11; // LCD E Pin
 const int lcdRSPin = 12; // LCD RS pin
 
-LiquidCrystal lcd(lcdRSPin, lcdEPin, lcdD4Pin, lcdD5Pin, lcdD6Pin, lcdD7Pin);
-BigNumbers bigNum(&lcd);
+LiquidCrystal lcd(lcdRSPin, lcdEPin, lcdD4Pin, lcdD5Pin, lcdD6Pin, lcdD7Pin); // construct LCD object
+BigNumbers bigNum(&lcd); // construct BigNumners object, passing to it the name of our LCD object
 
 void setup()
 {
-  TCCR1B = TCCR1B & 0b11111000 | 0x01; // increase Timer 1 PWM freq to ~32 kHz
+  TCCR1B = TCCR1B & 0b11111000 | 0x01; // increase Timer 1 PWM freq to ~32 kHz - this prevents flickering on the display
   pinMode(9,OUTPUT);
   pinMode(10,OUTPUT);
   analogWrite(9,50); // set LCD contrast with PWM
   analogWrite(10,127); // set LCD backlight with PWM
-  lcd.begin(16,2);
-  lcd.clear();
+  lcd.begin(16,2); // setup LCD rows and columns
+  lcd.clear(); // clear display
 }
 
 void loop()
