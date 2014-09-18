@@ -44,7 +44,15 @@ BigNumbers bigNum(&lcd); // construct BigNumners object, passing to it the name 
 
 void setup()
 {
-  TCCR1B = TCCR1B & 0b11111000 | 0x01; // increase Timer 1 PWM freq to ~32 kHz - this prevents flickering on the display
+  /*
+  The following 2 lines change the PWM frequency of digital pins 9 and 10.
+  On Arduino Uno, these pins are controlled by Timer1.
+  On Arduino MEGA2560, these pins are controlled by Timer2.
+  Use the line that you need and comment out the other.
+  See <http://playground.arduino.cc/Main/TimerPWMCheatsheet> for more details.
+  */
+  TCCR1B = TCCR1B & 0b11111000 | 0x01; // use for Arduino Uno
+  // TCCR2B = TCCR1B & 0b11111000 | 0x01; // use for Arduino Mega2560
   pinMode(9,OUTPUT);
   pinMode(10,OUTPUT);
   analogWrite(9,50); // set LCD contrast with PWM - change this value if hard to read display
