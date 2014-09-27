@@ -40,7 +40,7 @@ const int lcdEPin = 11; // LCD E Pin
 const int lcdRSPin = 12; // LCD RS pin
 
 LiquidCrystal lcd(lcdRSPin, lcdEPin, lcdD4Pin, lcdD5Pin, lcdD6Pin, lcdD7Pin); // construct LCD object
-BigNumbers bigNum(&lcd); // construct BigNumners object, passing to it the name of our LCD object
+BigNumbers bigNum(&lcd); // construct BigNumbers object, passing to it the name of our LCD object
 
 void setup()
 {
