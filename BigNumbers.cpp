@@ -108,9 +108,12 @@ byte lowerEnd[8] =
   B01111
 };
 
-BigNumbers::BigNumbers(LiquidCrystal* lcd)
+BigNumbers::BigNumbers(serLCD* lcd)
 {
   _lcd = lcd;
+}
+void BigNumbers::init()
+{
   _lcd->createChar(0,leftSide);
   _lcd->createChar(1,upperBar);
   _lcd->createChar(2,rightSide);
@@ -148,12 +151,12 @@ void BigNumbers::displayLargeNumber(byte n, byte x) // n is number to display, x
     case 1:
     {
       _lcd->setCursor(x,0);
-      _lcd->write(char(254));
-      _lcd->write(char(254));
+      _lcd->write(' ');
+      _lcd->write(' ');
       _lcd->write(2);
       _lcd->setCursor(x,1);
-      _lcd->write(char(254));
-      _lcd->write(char(254));
+      _lcd->write(' ');
+      _lcd->write(' ');
       _lcd->write(2);
       break;
     }
@@ -188,8 +191,8 @@ void BigNumbers::displayLargeNumber(byte n, byte x) // n is number to display, x
       _lcd->write(4);
       _lcd->write(2);
       _lcd->setCursor(x, 1);
-      _lcd->write(char(254));
-      _lcd->write(char(254));
+      _lcd->write(' ');
+      _lcd->write(' ');
       _lcd->write(2);
       break;
     }
@@ -224,8 +227,8 @@ void BigNumbers::displayLargeNumber(byte n, byte x) // n is number to display, x
       _lcd->write(1);
       _lcd->write(2);
       _lcd->setCursor(x, 1);
-      _lcd->write(char(254));
-      _lcd->write(char(254));
+      _lcd->write(' ');
+      _lcd->write(' ');
       _lcd->write(2);
       break;
     }

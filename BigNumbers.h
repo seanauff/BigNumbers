@@ -21,16 +21,17 @@
 #define BigNumbers_h
 
 #include "Arduino.h"
-#include "LiquidCrystal.h"
+#include <serLCD.h>
 
 class BigNumbers
 {
   public:
-    BigNumbers(LiquidCrystal*);
+    BigNumbers(serLCD*);
+    void init();
     void clearLargeNumber(byte);
     void displayLargeNumber(byte, byte);
   private:
-    LiquidCrystal* _lcd;
+    serLCD* _lcd;
 };
 
 #endif
