@@ -1,5 +1,6 @@
 /*
-  BigNumbers.h - Library for displaying large numbers on LCD displays using the HD44780 driver.
+  BigNumbersFast.h - Library for displaying large numbers on LCD displays using the HD44780 driver.
+  Extends LiquidCrystalFast<https://www.pjrc.com/teensy/td_libs_LiquidCrystal.html>
  
   Copyright (C) 2014 Sean Auffinger
  
@@ -17,20 +18,20 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BigNumbers_h
-#define BigNumbers_h
+#ifndef BigNumbersFast_h
+#define BigNumbersFast_h
 
 #include "Arduino.h"
-#include "LiquidCrystal.h"
+#include "LiquidCrystalFast.h"
 
-class BigNumbers
+class BigNumbersFast
 {
   public:
-    BigNumbers(LiquidCrystal*);
+    BigNumbersFast(LiquidCrystalFast*);
     void clearLargeNumber(byte);
     void displayLargeNumber(byte, byte);
   private:
-    LiquidCrystal* _lcd;
+    LiquidCrystalFast* _lcd;
 };
 
 #endif
