@@ -9,7 +9,7 @@
   * LCD D5 pin to digital pin 4
   * LCD D6 pin to digital pin 3
   * LCD D7 pin to digital pin 2
-  * LCD R/W pin to ground
+  * LCD R/W pin to digital pin 6
   * LCD V0 pin to digital pin 9
   * LCD backlight Anode pin to digital pin 10
  
@@ -29,18 +29,19 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <LiquidCrystal.h>
-#include <BigNumbers.h>
+#include <LiquidCrystalFast.h>
+#include <BigNumbersFast.h>
 
 const int lcdD7Pin = 2; // LCD D7 pin
 const int lcdD6Pin = 3; // LCD D6 pin
 const int lcdD5Pin = 4; // LCD D5 pin
 const int lcdD4Pin = 5; // LCD D4 pin
+const int lcdRWPin = 6; // LCD RW Pin
 const int lcdEPin = 11; // LCD E Pin
 const int lcdRSPin = 12; // LCD RS pin
 
-LiquidCrystal lcd(lcdRSPin, lcdEPin, lcdD4Pin, lcdD5Pin, lcdD6Pin, lcdD7Pin); // construct LCD object
-BigNumbers bigNum(&lcd); // construct BigNumbers object, passing to it the name of our LCD object
+LiquidCrystalFast lcd(lcdRSPin, lcdRWPin, lcdEPin, lcdD4Pin, lcdD5Pin, lcdD6Pin, lcdD7Pin); // construct LCD object
+BigNumbersFast bigNum(&lcd); // construct BigNumbers object, passing to it the name of our LCD object
 
 void setup()
 {
@@ -53,11 +54,11 @@ void setup()
   */
   TCCR1B = TCCR1B & 0b11111000 | 0x01; // use for Arduino Uno
   // TCCR2B = TCCR1B & 0b11111000 | 0x01; // use for Arduino Mega2560
-  pinMode(9,OUTPUT);
-  pinMode(10,OUTPUT);
-  analogWrite(9,50); // set LCD contrast with PWM - change this value if hard to read display
-  analogWrite(10,127); // set LCD backlight with PWM
-  lcd.begin(16,2); // setup LCD rows and columns
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  analogWrite(9, 50); // set LCD contrast with PWM - change this value if hard to read display
+  analogWrite(10, 127); // set LCD backlight with PWM
+  lcd.begin(16, 2); // setup LCD rows and columns
   lcd.clear(); // clear display
 }
 
@@ -77,7 +78,7 @@ void loop()
   timeString[0] = currentTime % 10;
   // print the digits before the decimal point as large numbers without leading zeros
   boolean significantZero = false;
-  for (int i = 0 ; i < 4 ; i++)
+  for (int i = 0; i < 4; i++)
   {
     if(timeString[i] == 0 && !significantZero && i < 3)
     {
