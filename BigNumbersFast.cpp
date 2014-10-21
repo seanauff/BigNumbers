@@ -1,5 +1,6 @@
 /*
-  BigNumbers.cpp - Library for displaying large numbers on LCD displays using the HD44780 driver.
+  BigNumbersFast.cpp - Library for displaying large numbers on LCD displays using the HD44780 driver.
+  Extends LiquidCrystalFast <https://www.pjrc.com/teensy/td_libs_LiquidCrystal.html>
  
   Copyright (C) 2014 Sean Auffinger
  
@@ -17,7 +18,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "BigNumbers.h"
+#include "BigNumbersFast.h"
 
 byte leftSide[8] = 
 {
@@ -108,7 +109,7 @@ byte lowerEnd[8] =
   B01111
 };
 
-BigNumbers::BigNumbers(LiquidCrystal* lcd)
+BigNumbersFast::BigNumbersFast(LiquidCrystalFast* lcd)
 {
   _lcd = lcd;
   _lcd->createChar(0,leftSide);
@@ -121,7 +122,7 @@ BigNumbers::BigNumbers(LiquidCrystal* lcd)
   _lcd->createChar(7,lowerEnd);
 }
 
-void BigNumbers::clearLargeNumber(byte x) // x is column of upper left corner for large character
+void BigNumbersFast::clearLargeNumber(byte x) // x is column of upper left corner for large character
 {
   _lcd->setCursor(x,0);
   _lcd->print("   ");
@@ -129,7 +130,7 @@ void BigNumbers::clearLargeNumber(byte x) // x is column of upper left corner fo
   _lcd->print("   ");
 }
 
-void BigNumbers::displayLargeNumber(byte n, byte x) // n is number to display, x is column of upper left corner for large character
+void BigNumbersFast::displayLargeNumber(byte n, byte x) // n is number to display, x is column of upper left corner for large character
 {
   switch (n)
   {
