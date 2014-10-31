@@ -67,7 +67,7 @@ void loop()
   int currentTime = millis() / 100; // assigns the current time since boot in tenths of a second to currentTime
   byte lastDigit = currentTime % 10;
   currentTime = currentTime /= 10;
-  bigNum.displayLargeInt(currentTime);
+  bigNum.displayLargeInt(currentTime, 0, 4, false);
   // print out the decimal point and the digit after it
   lcd.setCursor(12, 1);
   lcd.print(".");
