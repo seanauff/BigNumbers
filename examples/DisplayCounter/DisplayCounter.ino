@@ -65,33 +65,11 @@ void setup()
 void loop()
 {
   int currentTime = millis() / 100; // assigns the current time since boot in tenths of a second to currentTime
-  // extracts the digits from the number into an array
-  byte timeString[5];
-  timeString[4] = currentTime % 10;
-  currentTime /= 10;
-  timeString[3] = currentTime % 10;
-  currentTime /= 10;
-  timeString[2] = currentTime % 10;
-  currentTime /= 10;
-  timeString[1] = currentTime % 10;
-  currentTime /= 10;
-  timeString[0] = currentTime % 10;
-  // print the digits before the decimal point as large numbers without leading zeros
-  boolean significantZero = false;
-  for (int i = 0; i < 4; i++)
-  {
-    if(timeString[i] == 0 && !significantZero && i < 3)
-    {
-      bigNum.clearLargeNumber(i * 3);
-    }
-    else
-    {
-      bigNum.displayLargeNumber(timeString[i], i * 3);
-      significantZero = true;
-    }
-  }
+  byte lastDigit = currentTime % 10;
+  currentTime = currentTime /= 10;
+  bigNum.displayLargeInt(currentTime);
   // print out the decimal point and the digit after it
   lcd.setCursor(12, 1);
   lcd.print(".");
-  lcd.print(timeString[4]);
+  lcd.print(lastDigit);
 }
