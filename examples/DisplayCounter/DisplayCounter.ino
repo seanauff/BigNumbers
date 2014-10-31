@@ -1,5 +1,5 @@
 /*
-  Display_Counter.ino - Example for displaying large numbers on LCD displays using the HD44780 driver.
+  DisplayCounter.ino - Example for displaying large numbers on LCD displays using the HD44780 driver.
   Displays the number of seconds since last boot on the display.
   	
   The circuit:
