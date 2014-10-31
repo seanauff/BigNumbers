@@ -30,6 +30,7 @@ class BigNumbersFast
     BigNumbersFast(LiquidCrystalFast*);
     void clearLargeNumber(byte);
     void displayLargeNumber(byte, byte);
+	  void displayLargeInt(int, byte, byte, bool);
   private:
     LiquidCrystalFast* _lcd;
 };
