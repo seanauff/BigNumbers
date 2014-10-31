@@ -20,6 +20,7 @@
 
 #include "BigNumbersFast.h"
 
+// custom characters
 byte leftSide[8] = 
 {
   B00111,
@@ -109,28 +110,83 @@ byte lowerEnd[8] =
   B01111
 };
 
+// Initializes BigNumbersFast object
+// Parameters: LiquidCrystalFast object to use
 BigNumbersFast::BigNumbersFast(LiquidCrystalFast* lcd)
 {
-  _lcd = lcd;
-  _lcd->createChar(0,leftSide);
-  _lcd->createChar(1,upperBar);
-  _lcd->createChar(2,rightSide);
-  _lcd->createChar(3,leftEnd);
-  _lcd->createChar(4,lowerBar);
-  _lcd->createChar(5,rightEnd);
-  _lcd->createChar(6,middleBar);
-  _lcd->createChar(7,lowerEnd);
+  _lcd = lcd; // pass lcd to private variable
+  // create custom characters
+  _lcd->createChar(0, leftSide);
+  _lcd->createChar(1, upperBar);
+  _lcd->createChar(2, rightSide);
+  _lcd->createChar(3, leftEnd);
+  _lcd->createChar(4, lowerBar);
+  _lcd->createChar(5, rightEnd);
+  _lcd->createChar(6, middleBar);
+  _lcd->createChar(7, lowerEnd);
 }
 
-void BigNumbersFast::clearLargeNumber(byte x) // x is column of upper left corner for large character
+// prints an integer to the display using large characters
+// Parameters: n - the integer to display
+//             x - column of upper left corner of first large character
+//             digits - number of digits of the integer (specifiying this allows the digit positions to remain constant when printing out ints of various lengths)
+//             leading - sets if leading zeros are printed or not (false = no, true = yes)
+void BigNumbersFast::displayLargeInt(int n, byte x, byte digits, bool leading)
 {
-  _lcd->setCursor(x,0);
+  boolean isNegative = false;
+  if(n < 0)
+  {
+    isNegative = true;
+    n = abs(n);
+  }
+  byte numString[digits];
+  byte index = digits - 1;
+  while(index)
+  {
+    numString[index] = n % 10;
+	n /= 10;
+	index--;
+  }
+  numString[0] = n % 10;
+  
+  for (int i = 0; i < digits; i++)
+  {
+    if(numString[i] == 0 && !leading && i < digits - 1)
+    {
+      clearLargeNumber((i * 3) + x);
+    }
+    else
+    {
+	  if (isNegative)
+      {
+        _lcd->setCursor(max(0, (i * 3) - 2), 0);
+		if(numString[i] == 1)
+		{
+		  _lcd->write(254); // space
+		}
+		_lcd->write(45); // "-"
+		isNegative = false;
+      }
+      displayLargeNumber(numString[i], (i * 3) + x);
+      leading = true;
+    }
+  }
+}
+
+// clears the 3x2 space containing a single large number character
+// Parameters: x - column of upper left corner for large character
+void BigNumbersFast::clearLargeNumber(byte x)
+{
+  _lcd->setCursor(x, 0);
   _lcd->print("   ");
-  _lcd->setCursor(x,1); 
+  _lcd->setCursor(x, 1); 
   _lcd->print("   ");
 }
 
-void BigNumbersFast::displayLargeNumber(byte n, byte x) // n is number to display, x is column of upper left corner for large character
+// prints a single large number character to the display
+// Parameters: n - number character to display
+//             x - column of upper left corner for large character
+void BigNumbersFast::displayLargeNumber(byte n, byte x)
 {
   switch (n)
   {
