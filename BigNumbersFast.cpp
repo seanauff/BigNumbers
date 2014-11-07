@@ -157,18 +157,18 @@ void BigNumbersFast::displayLargeInt(int n, byte x, byte digits, bool leading)
     }
     else
     {
-	  if (isNegative)
-      {
-        _lcd->setCursor(max(0, (i * 3) - 2), 0);
-		if(numString[i] == 1)
-		{
-		  _lcd->write(254); // space
-		}
-		_lcd->write(45); // "-"
-		isNegative = false;
-      }
-      displayLargeNumber(numString[i], (i * 3) + x);
+	  displayLargeNumber(numString[i], (i * 3) + x);
       leading = true;
+	  //if (isNegative)
+      //{
+       // _lcd->setCursor(max(0, (i * 3) - 2 + x), 0);
+		//if(numString[i] == 1)
+		//{
+		//  
+		//}
+		//_lcd->write(45); // "-"
+		//isNegative = false;
+      //}
     }
   }
 }
