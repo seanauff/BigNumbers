@@ -28,9 +28,10 @@ class BigNumbersFast
 {
   public:
     BigNumbersFast(LiquidCrystalFast*);
+	  void begin();
     void clearLargeNumber(byte);
     void displayLargeNumber(byte, byte);
-    void displayLargeInt(int, byte, byte, bool);
+	  void displayLargeInt(int, byte, byte, bool);
   private:
     LiquidCrystalFast* _lcd;
 };
