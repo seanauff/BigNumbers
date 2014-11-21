@@ -108,17 +108,71 @@ byte lowerEnd[8] =
   B01111
 };
 
+// Creates BigNumbers object
+// LiquidCrystal* lcd: LiquidCrystal object to use
 BigNumbers::BigNumbers(LiquidCrystal* lcd)
 {
   _lcd = lcd;
-  _lcd->createChar(0,leftSide);
-  _lcd->createChar(1,upperBar);
-  _lcd->createChar(2,rightSide);
-  _lcd->createChar(3,leftEnd);
-  _lcd->createChar(4,lowerBar);
-  _lcd->createChar(5,rightEnd);
-  _lcd->createChar(6,middleBar);
-  _lcd->createChar(7,lowerEnd);
+}
+
+void BigNumbers::begin()
+{
+  // create custom characters
+  _lcd->createChar(0, leftSide);
+  _lcd->createChar(1, upperBar);
+  _lcd->createChar(2, rightSide);
+  _lcd->createChar(3, leftEnd);
+  _lcd->createChar(4, lowerBar);
+  _lcd->createChar(5, rightEnd);
+  _lcd->createChar(6, middleBar);
+  _lcd->createChar(7, lowerEnd);
+}
+
+// prints an integer to the display using large characters
+// Parameters: n - the integer to display
+//             x - column of upper left corner of first large character
+//             digits - number of digits of the integer (specifiying this allows the digit positions to remain constant when printing out ints of various lengths)
+//             leading - sets if leading zeros are printed or not (false = no, true = yes)
+void BigNumbers::displayLargeInt(int n, byte x, byte digits, bool leading)
+{
+  boolean isNegative = false;
+  if(n < 0)
+  {
+    isNegative = true;
+    n = abs(n);
+  }
+  byte numString[digits];
+  byte index = digits - 1;
+  while(index)
+  {
+    numString[index] = n % 10;
+	n /= 10;
+	index--;
+  }
+  numString[0] = n % 10;
+  
+  for (int i = 0; i < digits; i++)
+  {
+    if(numString[i] == 0 && !leading && i < digits - 1)
+    {
+      clearLargeNumber((i * 3) + x);
+    }
+    else
+    {
+	  displayLargeNumber(numString[i], (i * 3) + x);
+      leading = true;
+	  //if (isNegative)
+      //{
+       // _lcd->setCursor(max(0, (i * 3) - 2 + x), 0);
+		//if(numString[i] == 1)
+		//{
+		//  
+		//}
+		//_lcd->write(45); // "-"
+		//isNegative = false;
+      //}
+    }
+  }
 }
 
 void BigNumbers::clearLargeNumber(byte x) // x is column of upper left corner for large character
