@@ -27,8 +27,10 @@ class BigNumbers
 {
   public:
     BigNumbers(LiquidCrystal*);
+	void begin();
     void clearLargeNumber(byte);
     void displayLargeNumber(byte, byte);
+	void displayLargeInt(int, byte, byte, bool);
   private:
     LiquidCrystal* _lcd;
 };
