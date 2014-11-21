@@ -59,6 +59,7 @@ void setup()
   analogWrite(9, 50); // set LCD contrast with PWM - change this value if hard to read display
   analogWrite(10, 127); // set LCD backlight with PWM
   lcd.begin(16, 2); // setup LCD rows and columns
+  bigNum.begin(); // set up BigNumbersFast
   lcd.clear(); // clear display
 }
 
