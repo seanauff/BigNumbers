@@ -115,6 +115,10 @@ byte lowerEnd[8] =
 BigNumbersFast::BigNumbersFast(LiquidCrystalFast* lcd)
 {
   _lcd = lcd; // pass lcd to private variable
+}
+
+void BigNumbersFast::begin()
+{
   // create custom characters
   _lcd->createChar(0, leftSide);
   _lcd->createChar(1, upperBar);
